@@ -17,7 +17,19 @@ public class Main{
         System.out.println("3." + Taco   +"=" + hargaTaco);
         System.out.println("0.Keluar");
 
-        // TESTTTT
+        Scanner input = new Scanner(System.in);
 
+        System.out.println("Pilih menu : ");
+        String namaMenu1 = input.nextLine();
+        String namaMenu2 = input.nextLine();
+        
+        System.out.println("Masukan harga : ");
+        int harga1 = input.nextInt();
+        int harga2 = input.nextInt();
+
+        int totalPembayaran = harga1 + harga2;
+
+        System.out.println("Anda memesan : " + namaMenu1 + " " + namaMenu2);
+        System.out.println("Total pembayaran : "  + totalPembayaran);
     }
 }
