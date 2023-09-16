@@ -1,31 +1,51 @@
-import Menu.MenuItem;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class Main{
+    public static void main(String[] args) {    
+        // menu
+        String burger = "Burger";
+        String pizza = "Pizza";
+        String taco = "Taco";
 
-    public static void main(String[] args) {
-        
-        // menus
-        MenuItem burger = new MenuItem(1,"Burger", 10_000);
-        MenuItem fries = new MenuItem(2,"Fries", 8000 );
-        MenuItem soda = new MenuItem(3,"Soda", 5000 );
+        int hargaBurger = 10_000;
+        int hargaPizza = 15_000;
+        int hargaTaco = 15_000;
 
         System.out.println("==========MENU==========");
-        System.out.println(burger.getIndex() + "." + burger.getName() + ": Harga " + burger.getPrice());
-        System.out.println(fries.getIndex() + "." + fries.getName() + " : Harga " + fries.getPrice());
-        System.out.println(soda.getIndex() + "." + soda.getName() + "  : Harga " + soda.getPrice());
-        
-        // input user
-        Scanner input = new Scanner(System.in);
-        System.out.print("Pilih menu (nomor): ");
-        int userInput = input.nextInt();
-        
-      
-        
-        
+        System.out.println("1." + burger + " = " + hargaBurger);
+        System.out.println("2." + pizza + " = " + hargaPizza);
+        System.out.println("3." + taco + " = " + hargaTaco);
+        System.out.println("0.Keluar");
 
+        boolean ulang = true;
 
+        while (ulang) {
+
+            Scanner input  = new Scanner(System.in);
+            System.out.print("\nPilih menu (nomor) : ");
+
+            int userInput = input.nextInt();
+
+            ArrayList<Integer> transaksi = new ArrayList<>();
+            
+            if (userInput == 1 ) {
+                System.out.println("Anda memilih " +  burger + " harga " + hargaBurger);
+
+                transaksi.add(hargaBurger);
+                System.out.println(transaksi);
+            } 
+            if (userInput == 2) {
+                 System.out.println("Anda memilih " +  pizza + " harga " + hargaPizza);
+            }
+
+            // keluar program
+            if (userInput == 0) {
+                ulang = false;
+            }
+           
+        }
+        System.out.println("Terima kasih sudah memesan");
 
     }
-    
 }
