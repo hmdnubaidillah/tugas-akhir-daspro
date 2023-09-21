@@ -27,7 +27,8 @@ class Main {
         System.out.print("Masukan harga : ");
         int harga = input.nextInt(); 
 
-        int totalHarga = jumlahPesanan * harga;
+
+        int totalHarga = harga * jumlahPesanan;
         
         System.out.print("Masukan uang anda : ");
         int uangCustomer = input.nextInt();
