@@ -4,8 +4,8 @@ class Main {
     public static void main(String[] args) {
 
         // user db
-        String username = "admin";
-        String password = "admin123";
+        String username = "123";
+        String password = "123";
 
         Scanner input = new Scanner(System.in);
 
@@ -39,43 +39,13 @@ class Main {
             System.out.print("Masukan password : ");
             String inputPassword = inputLogin.nextLine();
 
-            if (inputUsername != username || inputPassword != password) {
-                System.out.println("Username tidak ditemukan atau password salah");
-
-            } else {
-                System.out.println("Login berhasil");
-
-                // Transaction
-                String burger = "Burger";
-                String pizza = "Pizza";
-                String taco = "Taco";
-                String cocaCola = "Coca-Cola";
-
-                int hargaBurger = 10_000;
-                int hargaPizza = 15_000;
-                int hargaTaco = 15_000;
-                int hargaCola = 5000;
-
-                System.out.println("========= MENU ==========");
-                System.out.printf("| 1. %s harga %d |\n", burger , hargaBurger);
-                System.out.printf("| 2. %s harga %d |\n", pizza , hargaPizza);
-                System.out.printf("| 3. %s harga %d |\n", taco , hargaTaco);
-                System.out.printf("| 4. %s harga %d |\n", cocaCola , hargaCola);
-                System.out.println("| 0. Keluar     |");
+            if (inputUsername != username) {
+                System.out.println("Username tidak ditemukan");
                 
-                Scanner inputMenu = new Scanner(System.in);
-                System.out.print("Masukan pilihan : ");
-                int inputUserMenu = inputMenu.nextInt();
-                
-                if (inputUserMenu > 4) {
-                    System.out.println("Harap masukan pilihan yang valid!");
-                } 
 
-                if (inputUserMenu == 0) {
-                    System.out.println("Terima kasih sudah menggunakan jasa kami :D");
+            } 
 
-                }
-            }
+            
 
        }
 
