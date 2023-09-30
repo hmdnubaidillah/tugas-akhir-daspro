@@ -2,11 +2,6 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
-
-        // user db
-        String username = "123";
-        String password = "123";
-
         Scanner input = new Scanner(System.in);
 
         // main menu
@@ -27,8 +22,11 @@ class Main {
         System.out.println("Terima kasih sudah menggunakan jasa kami :D");
        }
 
-       if (number == 1) {
+         // user db
+            String username = "";
+            String password = "";
 
+       if (number == 1) {
             Scanner inputLogin = new Scanner(System.in);
 
             System.out.println("========= LOGIN =========");
@@ -39,19 +37,64 @@ class Main {
             System.out.print("Masukan password : ");
             String inputPassword = inputLogin.nextLine();
 
-            if (inputUsername != username) {
-                System.out.println("Username tidak ditemukan");
-                
+            if ( inputUsername.equals(username)) {
 
-            } 
+                if (inputPassword.equals(password)){
+                    System.out.println("Login berhasil");
 
+                    // Transaction
+                    String burger = "Burger";
+                    String pizza = "Pizza";
+                    String taco = "Taco";
+                    String cocaCola = "Coca-Cola";
+
+                    int hargaBurger = 10_000;
+                    int hargaPizza = 15_000;
+                    int hargaTaco = 15_000;
+                    int hargaCola = 5000;
+
+                    System.out.println("========= MENU ==========");
+                    System.out.printf("| 1. %s harga %d |\n", burger , hargaBurger);
+                    System.out.printf("| 2. %s harga %d |\n", pizza , hargaPizza);
+                    System.out.printf("| 3. %s harga %d |\n", taco , hargaTaco);
+                    System.out.printf("| 4. %s harga %d |\n", cocaCola , hargaCola);
+                    System.out.println("| 0. Keluar     |");
+                    
+                    System.out.print("Masukan nomor : ");
+                    int menuInput = input.nextInt();
+
+                    if (menuInput == 1) {
+                        System.out.println("Anda memesan : " + burger);
+                        Scanner inputMenu = new Scanner(System.in);
+                        
+                        // add jumlah pesanan
+                        int jumlahPesanan = inputMenu.nextInt();
+                        int totalPembayaran  = jumlahPesanan * hargaBurger;
+
+                        // jika ada diskon
+                        System.out.print("Apakah ada diskon? (Y/T) : ");
+                        String isDiscount = inputMenu.nextLine();
+
+                        if (isDiscount.toLowerCase().equals("y")){
+                            System.out.print("Masukan diskon : ");
+                            double diskon = inputMenu.nextDouble(); 
+                        }
+
+                    }
+
+                    
+
+                } else {
+                    System.out.println("Username atau password salah");
+                }
+            }  else {
+                System.out.println("Username atau password salah");
+            }
             
-
        }
 
-       if(number == 2 ) {
+       if (number == 2 ) {
         Scanner inputRegister = new Scanner(System.in);
-
         System.out.println("========= REGISTER =========");
 
         System.out.print("Masukan username : ");
@@ -61,7 +104,6 @@ class Main {
         password = inputRegister.nextLine();
 
         System.out.println("Register berhasil!!! :D");
-
        }
     }
 }
