@@ -23,8 +23,8 @@ class Main {
        }
 
          // user db
-            String username = "";
-            String password = "";
+            String username = "123";
+            String password = "123";
 
        if (number == 1) {
             Scanner inputLogin = new Scanner(System.in);
@@ -64,26 +64,31 @@ class Main {
                     int menuInput = input.nextInt();
 
                     if (menuInput == 1) {
-                        System.out.println("Anda memesan : " + burger);
                         Scanner inputMenu = new Scanner(System.in);
+                        Scanner inputDiskon = new Scanner(System.in);
+                        System.out.println("Anda memesan : " + burger);
                         
                         // add jumlah pesanan
+                        System.out.println("Jumlah Pesanan : ");
                         int jumlahPesanan = inputMenu.nextInt();
                         int totalPembayaran  = jumlahPesanan * hargaBurger;
 
                         // jika ada diskon
-                        System.out.print("Apakah ada diskon? (Y/T) : ");
-                        String isDiscount = inputMenu.nextLine();
+                        System.out.println("Apakah ada diskon? (Y/T) : ");
+                        String isDiscount = inputDiskon.nextLine();
 
                         if (isDiscount.toLowerCase().equals("y")){
                             System.out.print("Masukan diskon : ");
-                            double diskon = inputMenu.nextDouble(); 
+                            double diskon = inputMenu.nextDouble();
+                            double totalDiskon = totalPembayaran * diskon / 100;
+                            double hargaAkhir = totalPembayaran - totalDiskon;
+                            System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %s\n", burger, jumlahPesanan, hargaBurger, hargaAkhir );
+                        } 
+                        else {
+                            System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %d\n", burger, jumlahPesanan, hargaBurger,totalPembayaran );
+                            
                         }
-
                     }
-
-                    
-
                 } else {
                     System.out.println("Username atau password salah");
                 }
