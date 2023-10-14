@@ -1,5 +1,5 @@
-# TUGAS AKHIR PRAKTIKUM DASPRO
-## MAHASISWA JURUSAN TEKNOLOGI INFORMASI PRODI D4 SISTEM INFORMASI BISNIS POLITEKNIK NEGERI MALANG
+## Tugas Akhir Praktikum Daspro
+### Mahasiswa Jurusan Teknologi Informasi Prodi D4 Sistem Informasi Bisnis Politeknik Negeri Malang
 
 Note: 
 kalau pengen coba coba code masuk ke branch "coba-coba"
