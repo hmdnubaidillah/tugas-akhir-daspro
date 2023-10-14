@@ -88,6 +88,12 @@ class Main {
                             System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %d\n", burger, jumlahPesanan, hargaBurger,totalPembayaran );
                             
                         }
+                        // lanjutkan kodingan menunya dibawah 
+                        // ----------
+
+
+
+                        // ----------
                     }
                 } else {
                     System.out.println("Username atau password salah");
