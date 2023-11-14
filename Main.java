@@ -5,8 +5,12 @@ public class Main {
     private static String password[] = {"admin123", "gacormas"};
 
     // menus
-    private static String menuName[] = {"Burger", "Pizza", "Taco", "Cola"};
-    private static int menuPrice[] = {10_000, 15_000, 15_000, 5_000};
+    private static String menuItems[][] = {
+        {"Burger", "10000"},
+        {"Pizza", "15000"},
+        {"Taco", "15000"},
+        {"Cola", "5000"}
+};
 
     public static void main(String[] args) {
         showMainMenu();
@@ -77,26 +81,26 @@ public class Main {
                 System.out.println("========= MENU ==========");
                 
                 // loop array menuName and menuPrice
-                for (int i = 0 ; i < menuName.length; i++) {
-                    System.out.printf("| %s. %s harga %d |\n",i + 1, menuName[i], menuPrice[i]);  
+                for (int i = 0; i < menuItems.length; i++) {
+                    System.out.printf("| %d. %s harga %s |\n", i + 1, menuItems[i][0], menuItems[i][1]);
                 }
                 System.out.println("| 0. Keluar     |");
 
-                System.out.print("Masukan nomor : ");
-                int menuInput = input.nextInt();
+                System.out.print("Masukkan nomor : ");
+                int inputMenu = input.nextInt();
 
                 // transaction
-                for (int i = 0 ; i < menuName.length; i++) {
-                    if (menuInput - 1 == i) {
-                        handleOrder(menuName[i], menuPrice[i]);
+                for (int i = 0; i < menuItems.length; i++) {
+                    if (inputMenu - 1 == i) {
+                        handleOrder(menuItems[i][0], Integer.parseInt(menuItems[i][1]));
                         break;
                     }
-                    if (menuInput > menuName.length) {
-                        System.out.println("Harap memasukan nomor yg valid");
+                    if (inputMenu > menuItems.length) {
+                        System.out.println("Harap masukkan nomor yang valid");
                         break;
                     }
-                    if (menuInput == 0 ) {
-                        System.out.println("Terima kasih sudah menggunakan jasa kami :D");
+                    if (inputMenu == 0) {
+                        System.out.println("Terima kasih telah menggunakan layanan kami :D");
                         continueOrdering = false;
                         break;
                     }
@@ -106,8 +110,6 @@ public class Main {
             System.out.println("Username atau password salah");
         }
     }
-
-    
 
     private static void handleOrder(String itemName, int itemPrice) {
         Scanner inputMenu = new Scanner(System.in);
