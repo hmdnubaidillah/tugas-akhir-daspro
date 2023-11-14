@@ -172,7 +172,7 @@ private static void Riwayat(){
                 System.out.println(pesanan);
             }
         }
-        System.out.println("===================================");
+        System.out.println("==================================");
 }
    
             
