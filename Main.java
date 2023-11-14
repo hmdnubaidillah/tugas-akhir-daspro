@@ -1,9 +1,10 @@
 import java.util.Scanner;
 public class Main {
     private static Scanner input = new Scanner(System.in);
-    private static String username[] = {"admin", "gacor"};
-    private static String password[] = {"admin123", "gacormas"};
-
+    private static String[][] loginData = {
+        {"admin", "admin123"},
+        {"gacor", "gacormas"}
+    };
     // menus
     private static String menuName[] = {"Burger", "Pizza", "Taco", "Cola"};
     private static int menuPrice[] = {10_000, 15_000, 15_000, 5_000};
@@ -19,6 +20,7 @@ public class Main {
             System.out.println("========= MAIN MENU =========");
             System.out.println("1. Login");
             System.out.println("2. Register");
+            System.out.println("3. Table Register");
             System.out.println("0. Keluar");
 
             System.out.print("Masukan pilihan : ");
@@ -34,6 +36,10 @@ public class Main {
                 case 2:
                     register();
                     break;
+                case 3:
+                    pemesananmeja();
+                    break;
+
                 default:
                     System.out.println("Harap masukan nomer yg valid");
                     break;
@@ -56,86 +62,77 @@ public class Main {
         boolean foundPassword = false;
 
         // authentication
-        for (String item : username) {
-            if (item.equals(inputUsername)){
+        for(String[] loginInfo : loginData){
+            if (loginInfo[0].equals(inputUsername) && loginInfo[1].equals(inputPassword)){
                 foundUsername = true;
-                break;
-            }
-        }
-        for (String item : password) {
-              if (item.equals(inputPassword)){
                 foundPassword = true;
                 break;
             }
         }
-
+        
         if (foundUsername && foundPassword ){
             System.out.println("Login berhasil");
             boolean continueOrdering = true;
 
             while (continueOrdering) {
-                System.out.println("========= MENU ==========");
                 
                 // loop array menuName and menuPrice
-                for (int i = 0 ; i < menuName.length; i++) {
-                    System.out.printf("| %s. %s harga %d |\n",i + 1, menuName[i], menuPrice[i]);  
+                System.out.println("===== MENU =====");
+                for (int i = 0; i < menuName.length; i++) {
+                    System.out.println((i + 1) + ". " + menuName[i] + " - Rp" + menuPrice[i]);
                 }
-                System.out.println("| 0. Keluar     |");
+                System.out.println("0. Selesai");
 
-                System.out.print("Masukan nomor : ");
+                // Get user input
+                System.out.print("Pilih menu: ");
                 int menuInput = input.nextInt();
 
-                // transaction
-                for (int i = 0 ; i < menuName.length; i++) {
-                    if (menuInput - 1 == i) {
-                        handleOrder(menuName[i], menuPrice[i]);
-                        break;
-                    }
-                    if (menuInput > menuName.length) {
-                        System.out.println("Harap memasukan nomor yg valid");
-                        break;
-                    }
-                    if (menuInput == 0 ) {
-                        System.out.println("Terima kasih sudah menggunakan jasa kami :D");
-                        continueOrdering = false;
-                        break;
+                if (menuInput > 0 && menuInput <= menuName.length) {
+                    // Valid input, handle order
+                    handleOrder(menuName[menuInput - 1], menuPrice[menuInput - 1]);
+                } else if (menuInput == 0) {
+                    // User wants to finish ordering
+                    System.out.println("Terima kasih sudah menggunakan jasa kami :D");
+                    continueOrdering = false;
+                } else {
+                    // Invalid input
+                    System.out.println("Harap masukkan nomor yang valid.");
+                }
+                        }
+                    } else {
+                        System.out.println("Username atau password salah");
                     }
                 }
-            }
-        } else {
-            System.out.println("Username atau password salah");
-        }
-    }
 
-    
+                private static void handleOrder(String itemName, int itemPrice) {
+                    Scanner inputMenu = new Scanner(System.in);
+                    Scanner inputDiskon = new Scanner(System.in);
 
-    private static void handleOrder(String itemName, int itemPrice) {
-        Scanner inputMenu = new Scanner(System.in);
-        Scanner inputDiskon = new Scanner(System.in);
+                    System.out.println("Anda memesan : " + itemName);
 
-        System.out.println("Anda memesan : " + itemName);
+                    // add jumlah pesanan
+                    System.out.println("Jumlah Pesanan : ");
+                    int jumlahPesanan = inputMenu.nextInt();
+                    int totalPembayaran = jumlahPesanan * itemPrice;
 
-        // add jumlah pesanan
-        System.out.println("Jumlah Pesanan : ");
-        int jumlahPesanan = inputMenu.nextInt();
-        int totalPembayaran = jumlahPesanan * itemPrice;
+                    // jika ada diskon
+                    System.out.println("Apakah ada diskon? (Y/T) : ");
+                    String isDiscount = inputDiskon.nextLine();
 
-        // jika ada diskon
-        System.out.println("Apakah ada diskon? (Y/T) : ");
-        String isDiscount = inputDiskon.nextLine();
+                    if (isDiscount.toLowerCase().equals("y")) {
+                        System.out.print("Masukan diskon : ");
+                        double diskon = inputMenu.nextDouble();
+                        double totalDiskon = totalPembayaran * diskon / 100;
+                        double hargaAkhir = totalPembayaran - totalDiskon;
+                        System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %s\n",
+                                itemName, jumlahPesanan, itemPrice, hargaAkhir);
+                    } else {
+                        System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %d\n", itemName,
+                                jumlahPesanan, itemPrice, totalPembayaran);
+                    }
+                }
 
-        if (isDiscount.toLowerCase().equals("y")) {
-            System.out.print("Masukan diskon : ");
-            double diskon = inputMenu.nextDouble();
-            double totalDiskon = totalPembayaran * diskon / 100;
-            double hargaAkhir = totalPembayaran - totalDiskon;
-            System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %s\n",
-                    itemName, jumlahPesanan, itemPrice, hargaAkhir);
-        } else {
-            System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %d\n", itemName,
-                    jumlahPesanan, itemPrice, totalPembayaran);
-        }
-    }
+                
 
     private static void register() {
         // Scanner inputRegister = new Scanner(System.in);
@@ -147,8 +144,53 @@ public class Main {
         // System.out.print("Masukan password : ");
         // password = inputRegister.nextLine();
 
-        // // System.out.println("Register berhasil!!! :D");
+        // System.out.println("Register berhasil!!! :D");
+    }
+
+    private static void pemesananmeja(){
+
+        //jumlah meja pada restoran
+
+        Scanner sc = new Scanner(System.in);
+        int jumlahMeja = 20;
+
+        int[] statusMeja = new int[jumlahMeja];
+
+       // Inisialisasi status awal semua meja (semua kosong)
+        for (int i = 0; i < jumlahMeja; i++) {
+            statusMeja[i] = 0;
+        }
+
+        boolean StatusMeja = true;
+        while (true) {
+
+            //Untuk memasukkan nomor meja
+            System.out.print("\nMasukkan nomor meja: ");
+            int nomorMeja = sc.nextInt();
+
+            //Untuk keluar program apabila memasukkan angka 0
+            if (nomorMeja == 0) {
+                break;
+            }
+            //Untuk memeriksa kevalidan meja
+            if(nomorMeja < 1 || nomorMeja > jumlahMeja){
+                System.out.println("Nomor meja tidak valid, mohon masukkan nomor meja yang telah disediakan");
+                continue;
+            }
+            //Untuk memeriksa meja terisi atau belum
+            if (statusMeja [nomorMeja - 1] == 1) {
+                System.out.println("Mohon maaf meja telah terisi, mohon memilih meja yang masih kosong");
+
+            //Untuk memesan meja
+            }else {
+                statusMeja[nomorMeja - 1] = 1;
+                System.out.println("Meja" + nomorMeja + "berhasil dipesan" );
+            }
+             //tampilkan daftar meja beserta statusnya
+            System.out.println("\nDaftar Meja: ");
+            for (int i = 0; i < jumlahMeja; i++){
+                System.out.println("Meja " + (i+1) + ": " +(statusMeja[i] == 1 ? "Terisi" : "Kosong"));
+            } 
+        }
     }
 }
-    
-
