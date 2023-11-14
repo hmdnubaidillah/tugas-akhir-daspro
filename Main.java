@@ -107,6 +107,8 @@ public class Main {
         }
     }
 
+    
+
     private static void handleOrder(String itemName, int itemPrice) {
         Scanner inputMenu = new Scanner(System.in);
         Scanner inputDiskon = new Scanner(System.in);
@@ -145,9 +147,8 @@ public class Main {
         // System.out.print("Masukan password : ");
         // password = inputRegister.nextLine();
 
-        // System.out.println("Register berhasil!!! :D");
+        // // System.out.println("Register berhasil!!! :D");
     }
 }
-
     
 
