@@ -1,15 +1,14 @@
 package KasierRestoran;
-import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
     private static Scanner input = new Scanner(System.in);
     private static String username[] = {"admin", "gacor"};
     private static String password[] = {"admin123", "gacormas"};
-    private static String[][] riwayatPesanan = new String[100][3];
-    private static int orderCount = 0;
+    
     // menus
     private static String menuName[] = {"Burger", "Pizza", "Taco", "Cola"};
     private static int menuPrice[] = {10_000, 15_000, 15_000, 5_000};
+    private static int totalPendapatan=0;
 
     public static void main(String[] args) {
         showMainMenu();
@@ -22,8 +21,8 @@ public class Main {
             System.out.println("========= MAIN MENU =========");
             System.out.println("1. Login");
             System.out.println("2. Register");
-            System.out.println("3.Riwayat pesanan anda");
             System.out.println("0. Keluar");
+            System.out.println("3. Lihat Total Pendapatan");
 
             System.out.print("Masukan pilihan : ");
             choice = input.nextInt();
@@ -39,9 +38,8 @@ public class Main {
                     register();
                     break;
                 case 3:
-                    Riwayat();
-                     break;
-
+                showTotalPendapatan();    
+                
                 default:
                     System.out.println("Harap masukan nomer yg valid");
                     break;
@@ -115,7 +113,7 @@ public class Main {
         }
     }
 
-    public static void handleOrder(String itemName, int itemPrice) {
+    private static void handleOrder(String itemName, int itemPrice) {
         Scanner inputMenu = new Scanner(System.in);
         Scanner inputDiskon = new Scanner(System.in);
 
@@ -141,6 +139,15 @@ public class Main {
             System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal pembayaran : %d\n", itemName,
                     jumlahPesanan, itemPrice, totalPembayaran);
         }
+
+        // Update total pendapatan
+        totalPendapatan +=totalPembayaran;
+    }
+
+    private static void showTotalPendapatan(){
+        System.out.println("======= TOTAL PENDAPATAN =======");
+        System.out.println("Total Pendapatan: " +totalPendapatan);
+
     }
 
     private static void register() {
@@ -155,40 +162,6 @@ public class Main {
 
         // System.out.println("Register berhasil!!! :D");
     }   
-        
-
-public static void handleOrder(String itemName, int itemPrice, int jumlahPesanan, double totalPembayaran){
-    Scanner inputMenu= new Scanner(System.in);
-
-    System.out.println("Anda memesan :" + itemName);
-
-    System.out.println("Jumlah pesanan : ");
-    int jumlahpesanan= inputMenu.nextInt();
-
-    riwayatPesanan[orderCount][0] = itemName;
-    riwayatPesanan[orderCount][1] = String.valueOf(itemPrice);
-    riwayatPesanan[orderCount][2] = String.valueOf(jumlahPesanan);
-
-    orderCount++;
-}
-public static void Riwayat(){
-    System.out.println("========= RIWAYAT PESANAN =========");
-       
-    for(int i= 0; i < orderCount; i++){
-        String itemName = riwayatPesanan[i][0];
-        int itemPrice = Integer.parseInt(riwayatPesanan[i][1]);
-        
-
-        System.out.printf("Pesanan: %s, Harga: %d, Jumlah: %d%n", itemName,itemPrice);
-    }
-
-    System.out.println("=====================");
-}
-   
-            
-        
-        
-
         
     } 
 
