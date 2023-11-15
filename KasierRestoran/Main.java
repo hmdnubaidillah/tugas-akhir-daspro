@@ -5,7 +5,8 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
     private static String username[] = {"admin", "gacor"};
     private static String password[] = {"admin123", "gacormas"};
-    private static ArrayList<String> riwayatPesanan = new ArrayList<>();
+    private static String[][] riwayatPesanan = new String[100][3];
+    private static int orderCount = 0;
     // menus
     private static String menuName[] = {"Burger", "Pizza", "Taco", "Cola"};
     private static int menuPrice[] = {10_000, 15_000, 15_000, 5_000};
@@ -114,7 +115,7 @@ public class Main {
         }
     }
 
-    private static void handleOrder(String itemName, int itemPrice) {
+    public static void handleOrder(String itemName, int itemPrice) {
         Scanner inputMenu = new Scanner(System.in);
         Scanner inputDiskon = new Scanner(System.in);
 
@@ -156,23 +157,32 @@ public class Main {
     }   
         
 
-private static void handleOrder(String hargaAkhir, int itemPrice, int jumlahPesanan, double totalPembayaran){
-    String detailPesanan = String.format("Pesanan: %s, Harga: %d, Total Pembayaran: %.2f",hargaAkhir, jumlahPesanan,itemPrice, totalPembayaran);
-    
-   riwayatPesanan.add(detailPesanan);
-   System.out.println("Pesanan berhasil ditambahkan ke riwayat!");
-   
+public static void handleOrder(String itemName, int itemPrice, int jumlahPesanan, double totalPembayaran){
+    Scanner inputMenu= new Scanner(System.in);
+
+    System.out.println("Anda memesan :" + itemName);
+
+    System.out.println("Jumlah pesanan : ");
+    int jumlahpesanan= inputMenu.nextInt();
+
+    riwayatPesanan[orderCount][0] = itemName;
+    riwayatPesanan[orderCount][1] = String.valueOf(itemPrice);
+    riwayatPesanan[orderCount][2] = String.valueOf(jumlahPesanan);
+
+    orderCount++;
 }
-private static void Riwayat(){
+public static void Riwayat(){
     System.out.println("========= RIWAYAT PESANAN =========");
-        if (riwayatPesanan.isEmpty()) {
-            System.out.println("Belum ada riwayat pesanan.");
-        } else {
-            for (String pesanan : riwayatPesanan) {
-                System.out.println(pesanan);
-            }
-        }
-        System.out.println("===============================");
+       
+    for(int i= 0; i < orderCount; i++){
+        String itemName = riwayatPesanan[i][0];
+        int itemPrice = Integer.parseInt(riwayatPesanan[i][1]);
+        
+
+        System.out.printf("Pesanan: %s, Harga: %d, Jumlah: %d%n", itemName,itemPrice);
+    }
+
+    System.out.println("=====================");
 }
    
             
