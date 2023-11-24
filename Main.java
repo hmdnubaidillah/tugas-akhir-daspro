@@ -150,9 +150,7 @@ public class Main {
     }
 
     private static void pemesananmeja() {
-
         // jumlah meja pada restoran
-
         Scanner sc = new Scanner(System.in);
         int jumlahMeja = 20;
 
