@@ -34,8 +34,32 @@ public class Main{
         
     }
   }
+
+  static void Identifikasi(){
+    Scanner input= new Scanner(System.in);
+
+    int memilihmenu=5;
+
+    while (memilihmenu < 5) {
+    
+    System.out.println("===========ANDA MEMASUKKI IDENTIFIKASI STOK============= ");
+    System.out.println("=========================================================");
+    System.out.println("========BERIKUT IDENTIFIKASI YANG DAPAT DILIHAT==========");
+    System.out.println("1.CEK STOK");
+    System.out.println("2.TAMBAHKAN STOK");
+    System.out.println("3.KURANGI STOK");
+    System.out.println("4.PERBARUI STOK");
+    System.out.println("5.TELUSURI HISTORI STOK");
+    System.out.println("6.KELUAR..");
+    System.out.println("MASUKKAN PILIHAN: ");
+
+        
+    }
+  }
+
   public static void main(String[] args) {
     Login();
+    Identifikasi();
   }
 
 }
