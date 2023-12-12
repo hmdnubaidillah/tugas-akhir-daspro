@@ -35,7 +35,7 @@ public class Identitasdanlaporan {
     Scanner sc= new Scanner(System.in);
     System.out.println("====SELAMAT DATANG====");
     System.out.println("1.TENTANG MENU");
-    System.out.println("2.CEK MENU");
+    System.out.println("2.CEK KESEDIAAN MENU HARI INI");
     System.out.println("3.LAPORAN PENDAPATAN");
     int pilihan= sc.nextInt();
     if (pilihan==1) {
@@ -70,7 +70,7 @@ static void tentangMenu() {
         System.out.println("Pilihan tidak valid");
     }
 }
-static void cekmenu(){
+static void cekmenuhariini(){
     Scanner sc= new Scanner(System.in);
     System.out.println("====BERIKUT TAMPILAN MENU TERSEDIA SAAT INI====");
     System.out.println("====                BURGER                 ====");
@@ -91,7 +91,7 @@ static void cekmenu(){
     break;
     default:
     System.out.println("Menu tidak valid.Silahkanpilih kembali ");
-    cekmenu();
+    cekmenuhariini();
     break;
    }
     }
