@@ -9,6 +9,7 @@ public class Main {
 
     static String getUsername = "";
 
+// Main brain code
     public static void main(String[] args) {
         setInitialLoginData();
         setInitalMenus();
@@ -557,7 +558,8 @@ public class Main {
         }
 
         if (apakahLoginSbgManajer) {
-            handleTampilkanDashboard();
+            // handleTampilkanDashboard();
+            tampilanManajer();
         }
 
     }
@@ -667,5 +669,78 @@ public class Main {
                 }
             }
         }
+    }
+    static Scanner scanner = new Scanner(System.in);
+    static int jumlahKasir = 2;
+    static int pendapatanTotal = 2;
+    static String[] namaKasir = new String[jumlahKasir];
+    static double[][] totalPendapatan = new double[jumlahKasir][pendapatanTotal];
+    static double[] pendapatanKasir = new double[jumlahKasir];
+
+    static int tampilanManajer() {
+        System.out.println("============  SELAMAT DATANG ============");
+        System.out.println("    1. LAPORAN STOK");
+        System.out.println("    2. LAPORAN PENDAPATAN");
+        System.out.println("    3. KEMBALI");
+        int choose = scanner.nextInt();
+
+        switch (choose) {
+            case 1:
+                laporanStok();
+                break;
+            case 2:
+                masukkanPendapatan();
+                laporanPendapatan();
+                kembaliKeMenu(); // Menambahkan pilihan untuk kembali ke menu awal
+                break;
+            default:
+                break;
+        }
+        return choose;
+    }
+
+    static void laporanStok() {
+        
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("=============== LAPORAN STOK KANTIN SEHAT ===============");
+        System.out.println("                 1.CEK KESEDIAAN STOK                    ");
+        System.out.println("                 2.CEK STOK YANG KELUAR                  ");
+        System.out.println("                 3.CEK STOK YANG MASUK                   ");
+        System.out.println("                   4.KELUAR                              ");
+    }
+       
+
+    static void ceksediastok(){
+        System.out.println("BERIKUT KETERSEDIAAN STOK MENU KANTIN SEHAT: ");
+        System.out.println("  ");
+    
+    }
+
+    static void laporanPendapatan() {
+        System.out.println("\nPendapatan Kasir:");
+        for (int i = 0; i < jumlahKasir; i++) {
+            System.out.print("Kasir ke-" + (i + 1) + " (" + namaKasir[i] + "): ");
+            System.out.println(pendapatanKasir[i]);
+        }
+    }
+
+    static void masukkanPendapatan() {
+        for (int i = 0; i < jumlahKasir; i++) {
+            System.out.print("Masukkan nama penanggung jawab kasier-" + (i + 1) + ": ");
+            namaKasir[i] = scanner.next();
+
+            for (int j = 0; j < pendapatanTotal; j++) {
+                System.out.print("Pendapatan tiap kasir " + (j + 1) + ": ");
+                totalPendapatan[i][j] = scanner.nextDouble();
+                // Simpan pendapatan saat memasukkan nilai
+                pendapatanKasir[i] += totalPendapatan[i][j];
+            }
+        }
+    }
+
+    static void kembaliKeMenu() {
+        System.out.println("\nTekan apa saja untuk kembali ke menu awal...");
+        scanner.next(); // Menunggu input sebelum melanjutkan
+        tampilanManajer(); // Kembali ke menu awal setelah menunjukkan laporan pendapatan
     }
 }
