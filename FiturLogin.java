@@ -3,12 +3,12 @@ import java.util.Scanner;
 public class FiturLogin {
 
     static String[][] menuItems = {
-            {"Chicken katsu",  "20000"},
-            {"Soto Lamongan",  "12000"},
-            {"Udang Crispy",   "10000"},
-            {"LemonTea",       "10000"},
-            {"Milk chocolate", "15000"},
-            {"Coca Cola",      "15000"}
+            { "Chicken katsu", "20000" },
+            { "Soto Lamongan", "12000" },
+            { "Udang Crispy", "10000" },
+            { "LemonTea", "10000" },
+            { "Milk chocolate", "15000" },
+            { "Coca Cola", "15000" }
 
     };
 
@@ -35,9 +35,8 @@ public class FiturLogin {
 
         scanner.close();
     }
-    
+
     public static void displayMainMenu() {
-        
         System.out.println("     ");
         System.out.println("||======== MAIN MENU ========||");
         System.out.println("||1. Login                   ||");
@@ -62,8 +61,8 @@ public class FiturLogin {
         boolean checkUsername = false;
         boolean checkPassword = false;
         String[][] users = {
-                {"manajer", "123"},
-                {"kasir", "321"}
+                { "manajer", "123" },
+                { "kasir", "321" }
         };
 
         for (String[] user : users) {
@@ -87,7 +86,7 @@ public class FiturLogin {
 
         } else {
             System.out.println("___ LOGIN GAGAL ___");
-            
+
         }
     }
 
@@ -115,15 +114,14 @@ public class FiturLogin {
             }
 
         } while (true);
-
         System.out.println("Total Harga: " + totalHarga);
     }
 
     static void displayMenu() {
         System.out.println("||========== MENU ==========||");
         for (int i = 0; i < menuItems.length; i++) {
-            System.out.println( (i + 1) + ". " + menuItems[i][0] +"   - Harga: " + menuItems[i][1]);
-            
+            System.out.println((i + 1) + ". " + menuItems[i][0] + "   - Harga: " + menuItems[i][1]);
+
         }
         System.out.println("0. Selesai Memesan");
         System.out.println("-1. Cari Menu");
@@ -139,10 +137,9 @@ public class FiturLogin {
         System.out.println("||        >>HASIL PENCARIAN<<       ||");
         for (String[] menuItem : menuItems) {
             if (menuItem[0].toLowerCase().contains(keyword)) {
-                System.out.println("   Menu: " + menuItem[0] + ", Harga:"+menuItem[1]);
+                System.out.println("   Menu: " + menuItem[0] + ", Harga:" + menuItem[1]);
                 System.out.println("    ");
                 found = true;
-               
 
             }
         }
@@ -158,5 +155,3 @@ public class FiturLogin {
         System.out.println("Iya Register");
     }
 }
-
-
