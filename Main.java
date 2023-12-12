@@ -5,7 +5,7 @@ public class Main {
     private static String[][] loginDataManager = new String[4][2];
 
     static String menuItems[][] = new String[10][4];
-    static String keranjang[][] = new String[menuItems.length][4];
+    static String keranjang[][] = new String[menuItems.length][5];
 
     static String getUsername = "";
 
@@ -64,7 +64,6 @@ public class Main {
         do {
             System.out.println("========= MAIN MENU =========");
             System.out.println("1. Login");
-            System.out.println("2. Register");
             System.out.println("0. Keluar");
 
             System.out.print("Masukan pilihan : ");
@@ -178,15 +177,16 @@ public class Main {
                         System.out.print("Apa anda yakin? (y/n) : ");
                         String konfirmasi = selesaiKanOrderSc.nextLine();
 
-                        int hargaTiapItem[] = new int[keranjang.length];
+                        double hargaTiapItem[] = new double[keranjang.length];
 
                         if (konfirmasi.equalsIgnoreCase("y")) {
-                            int totalHarga = 0;
+                            double totalHarga = 0;
+
                             for (int i = 0; i < keranjang.length; i++) {
                                 for (int j = 0; j < keranjang[i].length; j++) {
                                     if (keranjang[i][j] != null) {
-                                        hargaTiapItem[i] = Integer.parseInt(keranjang[i][1])
-                                                * Integer.parseInt(keranjang[i][2]);
+                                        hargaTiapItem[i] = Integer.parseInt(keranjang[i][2])
+                                                * Double.parseDouble(keranjang[i][1]);
                                         totalHarga += hargaTiapItem[i];
                                         break;
                                     }
@@ -220,37 +220,52 @@ public class Main {
                         } else {
                             System.out.println("Pesanan tidak terkonfirmasi");
                         }
-                    }
-
-                    // kondisi jika menu sudah ada di keranjang dan ingin meng update jumlahnya
-                    // mendapatkan index dari menu yang dipilih
-
-                    int indexKeranjang = -1;
-                    for (int i = 0; i < keranjang.length; i++) {
-                        if (keranjang[i][0] != null && keranjang[i][0].equals(menuItems[menuInput - 1][1])) {
-                            indexKeranjang = i;
-                            break;
-                        }
-                    }
-
-                    // tambah tambahan jumlah menu ke keranjang
-                    if (indexKeranjang != -1) {
-                        handleTambahJumlahMenu(indexKeranjang);
+                    } else if (menuInput == 33) {
+                        searchMenu();
                     } else {
-
-                        // proses transaksi disini
-                        System.out.print("Masukan jumlah pesanan : ");
-                        int jumlahMenu = sc.nextInt();
-                        System.out.println();
-
-                        if (menuInput < menuItems.length) {
-                            handleTransaksi(jumlahMenu, counter, menuInput);
-
-                        } else {
-                            System.out.println("Please enter a valid menu number");
+                        // kondisi jika menu sudah ada di keranjang dan ingin meng update jumlahnya
+                        // mendapatkan index dari menu yang dipilih
+                        int indexKeranjang = -1;
+                        for (int i = 0; i < keranjang.length; i++) {
+                            if (keranjang[i][0] != null && keranjang[i][0].equals(menuItems[menuInput - 1][1])) {
+                                indexKeranjang = i;
+                                break;
+                            }
                         }
-                        counter++;
+
+                        // tambah tambahan jumlah menu ke keranjang
+                        if (indexKeranjang != -1) {
+                            handleTambahJumlahMenu(indexKeranjang);
+                        } else {
+                            Scanner scan = new Scanner(System.in);
+
+                            // proses transaksi disini
+                            System.out.print("Masukan jumlah pesanan : ");
+                            int jumlahMenu = sc.nextInt();
+                            System.out.println();
+
+                            System.out.print("Apakah ada diskon? (y/n) : ");
+                            String apakahDiskon = scan.nextLine();
+
+                            boolean isDiskon = false;
+
+                            if (menuInput < menuItems.length) {
+                                // check jika ada diskon
+                                if (apakahDiskon.equalsIgnoreCase("y")) {
+                                    isDiskon = true;
+
+                                    handleTransaksi(jumlahMenu, counter, menuInput, isDiskon);
+                                } else {
+
+                                    handleTransaksi(jumlahMenu, counter, menuInput, isDiskon);
+                                }
+                            } else {
+                                System.out.println("Please enter a valid menu number");
+                            }
+                            counter++;
+                        }
                     }
+
                 }
             } else if (input == 2) {
                 // manage menu
@@ -333,13 +348,13 @@ public class Main {
     static void printkeranjang() {
         for (int i = 0; i < keranjang.length; i++) {
             if (keranjang[i][0] != null) {
-                System.out.printf("Order %s\nItem : %s\nPrice : %s\nAmount : %s\n", (i + 1),
+                System.out.printf("Pesanan %s\nItem : %s\nHarga : %s\nJumlah : %s\n", (i + 1),
                         keranjang[i][0],
                         keranjang[i][1], keranjang[i][2]);
                 System.out.println();
 
             } else {
-                System.out.printf("%s. Empty...\n", (i + 1));
+                System.out.printf("%s. Kosong...\n", (i + 1));
             }
         }
     }
@@ -359,9 +374,7 @@ public class Main {
             // print keranjang
             printkeranjang();
             System.out.println();
-            System.out.println("1. Tambah jumlah menu");
-            System.out.println("2. Kurangi jumlah menu");
-            System.out.println("3. Hapus menu");
+            System.out.println("1. Hapus menu");
             System.out.println("0. Keluar");
             System.out.println();
 
@@ -374,21 +387,6 @@ public class Main {
                 break;
 
             } else if (input == 1) {
-                System.out.println();
-                System.out.print("Pilih menu yang akan ditambahkan jumlahnya : ");
-                int tambahJumlahMenuTambahan = scan.nextInt();
-
-                for (int i = 0; i < keranjang.length; i++) {
-                    indexKeranjang[i] = i;
-
-                    if (keranjang[i] != null && indexKeranjang[i] == (tambahJumlahMenuTambahan - 1)) {
-                        System.out.println(keranjang[i][0]);
-                        break;
-                    }
-                }
-            } else if (input == 2) {
-
-            } else if (input == 3) {
                 System.out.println();
                 System.out.print("Pilih menu yang akan dihapus : ");
                 int tambahJumlahMenuTambahan = scan.nextInt();
@@ -409,6 +407,10 @@ public class Main {
                         }
                     }
                 }
+            } else if (input == 2) {
+
+            } else if (input == 3) {
+
             } else {
                 System.out.println("Masukan input yang valid");
             }
@@ -561,7 +563,8 @@ public class Main {
     }
 
     // pemesanan
-    static void handleTransaksi(int jumlahMenu, int counter, int menuInput) {
+    static void handleTransaksi(int jumlahMenu, int counter, int menuInput, boolean isDiskon) {
+        Scanner sc = new Scanner(System.in);
         boolean found = false;
         int indexKeranjang = -1;
 
@@ -570,6 +573,12 @@ public class Main {
                 indexKeranjang = i;
                 break;
             }
+        }
+        double persentasiDiskon = 0;
+
+        if (isDiskon) {
+            System.out.print("Masukan persentase diskon : ");
+            persentasiDiskon = sc.nextDouble();
         }
 
         if (indexKeranjang == -1) {
@@ -582,14 +591,17 @@ public class Main {
                     if (menuInput == Integer.parseInt(menuItems[i][0])) {
 
                         System.out.println("==========PESANAN ANDA==========");
-                        System.out.printf("Pesanan ke-%s\nMenu : %s\nHarga : %s\nJumlah : %s\n", counter,
-                                menuItems[i][1], menuItems[i][2], jumlahMenu);
+                        System.out.printf("Pesanan ke-%s\nNama : %s\nHarga : %s\nJumlah : %s\nDiskon : %s Persen\n",
+                                counter,
+                                menuItems[i][1], menuItems[i][2], jumlahMenu, persentasiDiskon);
                         System.out.println("=================================");
+
                         int jumlahMenuDalamStok = Integer.parseInt(menuItems[i][3]);
 
                         if (jumlahMenu > jumlahMenuDalamStok) {
                             found = true;
                             System.out.println("Stok tidak cukup");
+
                         } else {
 
                             // masukan menu ke keranjang
@@ -597,6 +609,17 @@ public class Main {
                             keranjang[indexKeranjang][1] = menuItems[i][2]; // harga
                             keranjang[indexKeranjang][2] = Integer.toString(jumlahMenu); // jumlah menu
                             keranjang[indexKeranjang][3] = Integer.toString(counter); // urutan menu
+
+                            // hitung diskon
+                            if (persentasiDiskon > 0 && persentasiDiskon <= 100) {
+
+                                int hargaDiKeranjang = Integer.parseInt(keranjang[indexKeranjang][1]);
+                                double hargaSetelahDiskon = hargaDiKeranjang * (persentasiDiskon / 100);
+
+                                // merubah harga item dikeranjang dengan harga baru setelah didiskon
+                                keranjang[indexKeranjang][1] = Double.toString(hargaDiKeranjang - hargaSetelahDiskon);
+                                keranjang[indexKeranjang][4] = Double.toString(persentasiDiskon);
+                            }
 
                             // update stok ketika pertama kali order
                             int stokYgSudahDiUpdate = Integer.parseInt(menuItems[i][3]) - jumlahMenu;
@@ -614,107 +637,35 @@ public class Main {
         }
     }
 
-    // static void orderMenu(Scanner scanner) {
-    // int totalHarga = 0;
-    // int menuChoice;
+    static void searchMenu() {
+        Scanner scanner = new Scanner(System.in);
 
-    // do {
-    // // displayMenu();
-    // System.out.print("Masukkan nomor menu yang ingin Anda pesan : ");
-    // menuChoice = scanner.nextInt();
+        boolean foo = true;
 
-    // if (menuChoice == 0) {
-    // break;
-    // } else if (menuChoice == -1) {
-    // // searchMenu(scanner);
-    // } else if (menuChoice >= 1 && menuChoice <= menuItems.length) {
-    // int quantity;
-    // System.out.print("Masukkan jumlah pesanan: ");
-    // quantity = scanner.nextInt();
-    // int harga = Integer.parseInt(menuItems[menuChoice - 1][1]);
-    // totalHarga += (harga * quantity);
-    // } else {
-    // System.out.println("Nomor menu tidak valid. Silakan pilih lagi.");
-    // }
+        while (foo) {
+            System.out.print("Masukkan nama menu yang ingin dicari (0 untuk keluar): ");
+            String keyword = scanner.next().toLowerCase();
+            boolean found = false;
 
-    // } while (true);
+            if (keyword.equalsIgnoreCase("0")) {
+                foo = false;
+                break;
+            } else {
+                System.out.println("||========>>HASIL PENCARIAN<<========||");
+                System.out.println();
+                for (int i = 0; i < menuItems.length; i++) {
+                    if (menuItems[i][0] != null && menuItems[i][1].toLowerCase().contains(keyword)) {
+                        System.out.println("Menu: " + menuItems[i][1] + ", Harga:" + menuItems[0][2]);
+                        found = true;
+                        break;
+                    }
+                }
 
-    // System.out.println("Total Harga: " + totalHarga);
-    // }
+                if (!found) {
+                    System.out.println();
+                    System.out.println("Menu tidak ditemukan");
+                }
+            }
+        }
+    }
 }
-
-// static void login() {
-// Scanner scanner = new Scanner(System.in);
-
-// System.out.println();
-// System.out.println("Login sebagai? ");
-// System.out.println("1. Manager");
-// System.out.println("2. Kasir");
-
-// System.out.print("Pilih jabatan anda (1 atau 2): ");
-// int roleChoice = scanner.nextInt();
-// scanner.nextLine();
-
-// System.out.println("=== LOGIN ===");
-// System.out.print("Masukkan Username: ");
-// String inputUsername = scanner.next();
-// System.out.print("Masukkan Password: ");
-// String inputPassword = scanner.next();
-
-// boolean checkUsername = false;
-// boolean checkPassword = false;
-
-// for (String[] user : loginDataKasir) {
-// if (inputUsername.equals(user[0]) && inputPassword.equals(user[1])) {
-// checkUsername = true;
-// checkPassword = true;
-// break;
-// }
-// }
-
-// if (checkUsername && checkPassword) {
-// System.out.println("____ LOGIN SUCCESS! ____");
-// if (roleChoice == 1) {
-// System.out.println("=== MENU LAPORAN PENDAPATAN ===");
-// // Implement your manager menu logic here
-
-// } else if (roleChoice == 2) {
-// System.out.println(" ");
-// System.out.println("=> MENU TRANSAKSI SELANJUTNYA <=");
-// orderMenu(scanner);
-
-// }
-
-// } else {
-// System.out.println("___ LOGIN GAGAL ___");
-
-// }
-// }
-
-// private static void handleOrder(String itemName, int itemPrice) {
-// Scanner inputMenu = new Scanner(System.in);
-// Scanner inputDiskon = new Scanner(System.in);
-
-// // add jumlah pesanan
-// System.out.println("Jumlah Pesanan : ");
-// int jumlahPesanan = inputMenu.nextInt();
-// int totalPembayaran = jumlahPesanan * itemPrice;
-
-// // jika ada diskon
-// System.out.println("Apakah ada diskon? (Y/T) : ");
-// String isDiscount = inputDiskon.nextLine();
-
-// if (isDiscount.toLowerCase().equals("y")) {
-// System.out.print("Masukan diskon : ");
-// double diskon = inputMenu.nextDouble();
-// double totalDiskon = totalPembayaran * diskon / 100;
-// double hargaAkhir = totalPembayaran - totalDiskon;
-// System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal
-// pembayaran : %s\n",
-// itemName, jumlahPesanan, itemPrice, hargaAkhir);
-// } else {
-// System.out.printf("Anda memesan : %s\nJumlah : %d\nHarga : %d\nTotal
-// pembayaran : %d\n", itemName,
-// jumlahPesanan, itemPrice, totalPembayaran);
-// }
-// }
