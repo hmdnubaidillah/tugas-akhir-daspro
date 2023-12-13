@@ -15,6 +15,8 @@ public class Main2 {
         setInitialLoginData();
         setInitalMenus();
         tampilkanMainMenu();
+        displaymenu();
+        
     }
 
     // function memasukan data login pas pertama kali program berjalan
@@ -690,13 +692,12 @@ public class Main2 {
 
         switch (choose) {
             case 1:
-                laporanStok();
-                
+                displaymenu();
                 break;
             case 2:
                 masukkanPendapatan();
                 laporanPendapatan();
-                kembaliKeMenu(); // Menambahkan pilihan untuk kembali ke menu awal
+                // Menambahkan pilihan untuk kembali ke menu awal
                 break;
             default:
                 break;
@@ -706,20 +707,11 @@ public class Main2 {
 
     static void laporanStok() {
         
-        Scanner scanner= new Scanner(System.in);
-        System.out.println("=============== LAPORAN STOK KANTIN SEHAT ===============");
-        System.out.println("                 1.CEK KESEDIAAN STOK                    ");
-        System.out.println("                 2.CEK STOK YANG KELUAR                  ");
-        System.out.println("                 3.CEK STOK YANG MASUK                   ");
-        System.out.println("                 4.KELUAR                                ");
-    }
+       
        
 
-    static void ceksediastok(){
-        System.out.println("BERIKUT KETERSEDIAAN STOK MENU KANTIN SEHAT: ");
-        
-    
     }
+       
 
     static void laporanPendapatan() {
         System.out.println("\nPendapatan Kasir:");
@@ -742,13 +734,92 @@ public class Main2 {
             }
         }
     }
+    static void displaymenu(){
+        Scanner scanner = new Scanner(System.in);
+        int choice=0;
 
+        while (choice !=3) {
+            System.out.println("\n========== MAIN Stok ==========");
+            System.out.println("1. Tampilkan Stok");
+            System.out.println("2. Ubah Stok menu");
+            System.out.println("3.Keluar");
+            System.out.println("Pilih Menu: ");
+            choice= scanner.nextInt();
 
-    static void kembaliKeMenu() {
-        System.out.println("\nTekan apa saja untuk kembali ke menu awal...");
-        scanner.next(); // Menunggu input sebelum melanjutkan
-        tampilanManajer(); // Kembali ke menu awal setelah menunjukkan laporan pendapatan
+            switch (choice) {
+                case 1:
+                displaymenus();
+                break;
+
+                case 2:
+                updateMenuItems(scanner);
+                break;
+
+                case 3:
+                System.out.println("Terimakasih !");
+                break;
+            
+                default:
+                System.out.println("Pilihan anda tidak valid !, pilih 1-3 !");
+                    break;
+            }
+            scanner.close();
+        }
+    
+    }
+static void displaymenus(){
+        menuItems[0][0] = "1"; // id
+        menuItems[0][1] = "Chicken katsu"; // name
+        menuItems[0][2] = "20000"; // price
+        menuItems[0][3] = "5"; // stocks
+
+        menuItems[1][0] = "2"; // id
+        menuItems[1][1] = "Soto Lamongan"; // name
+        menuItems[1][2] = "12000"; // price
+        menuItems[1][3] = "5"; // stocks
+
+        menuItems[2][0] = "3"; // id
+        menuItems[2][1] = "Udang Crispy"; // name
+        menuItems[2][2] = "10000"; // price
+        menuItems[2][3] = "5"; // stocks
+
+        menuItems[3][0] = "4"; // id
+        menuItems[3][1] = "Lemon Tea"; // name
+        menuItems[3][2] = "10000"; // price
+        menuItems[3][3] = "5"; // stocks
+
+        menuItems[4][0] = "5"; // id
+        menuItems[4][1] = "Milk chocolate"; // name
+        menuItems[4][2] = "15000"; // price
+        menuItems[4][3] = "5"; // stocks
+
+        menuItems[5][0] = "6"; // id
+        menuItems[5][1] = "Coca Cola"; // name
+        menuItems[5][2] = "15000"; // price
+        menuItems[5][3] = "5"; // stocks
+}
+static void updateMenuItems(Scanner scanner){
+    System.out.println("\n========== Ubah Stok Menu ==========");
+    System.out.println("Masukkan ID menu yang ingin di ubah: ");
+    int idMenu= scanner.nextInt();
+
+    if (idMenu >=1 && idMenu <= menuItems.length) {
+        System.out.println("Masukkan nama menu baru: ");
+        String newMenuname= scanner.next();
+
+        System.out.println("Masukkan jumlah stok baru: ");
+        int newStok= scanner.nextInt();
+
+        menuItems[idMenu -1][1]= newMenuname;
+        menuItems[idMenu -1][3]= String.valueOf(newStok);
+
+        System.out.println("Menu berhasil di rubah !");
+        
+    }else{
+        System.out.println("ID Menu tidak Valid !");
     }
 }
+    }
+
 
 
