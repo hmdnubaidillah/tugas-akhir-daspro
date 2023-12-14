@@ -15,8 +15,9 @@ public class Main {
         setInitialLoginData();
         setInitalMenus();
         tampilkanMainMenu();
-        displaymenu();
-        
+        masukkanPendapatan();
+        laporanPendapatan();
+
     }
 
     // function memasukan data login pas pertama kali program berjalan
@@ -91,29 +92,29 @@ public class Main {
         } while (choice != 0);
     }
 
-    static void handleTampilkanDashboard() {
-        Scanner sc = new Scanner(System.in);
+    // static void handleTampilkanDashboard() {
+    //     Scanner sc = new Scanner(System.in);
 
-        System.out.println("==========DASHBOARD MANAJER==========");
-        System.out.println();
-        System.out.println(getUsername);
-        System.out.println();
-        System.out.println("1. Lihat laporan keuangan");
-        System.out.println("0. Logout");
+    //     System.out.println("==========DASHBOARD MANAJER==========");
+    //     System.out.println();
+    //     System.out.println(getUsername);
+    //     System.out.println();
+    //     System.out.println("1. Lihat laporan keuangan");
+    //     System.out.println("0. Logout");
 
-        boolean bar = true;
+    //     boolean bar = true;
 
-        while (bar) {
-            System.out.print("Masukan nomor input : ");
-            int input = sc.nextInt();
+    //     while (bar) {
+    //         System.out.print("Masukan nomor input : ");
+    //         int input = sc.nextInt();
 
-            if (input == 0) {
-                bar = false;
-                System.out.println("Sudah log out");
-                break;
-            }
-        }
-    }
+    //         if (input == 0) {
+    //             bar = false;
+    //             System.out.println("Sudah log out");
+    //             break;
+    //         }
+    //     }
+    // }
 
     static void handleTampilkanMainMenuKasir() {
         Scanner sc = new Scanner(System.in);
@@ -675,151 +676,107 @@ public class Main {
         }
     }
     static Scanner scanner = new Scanner(System.in);
-    static int jumlahKasir = 2;
-    static int pendapatanTotal = 2;
+    static int jumlahKasir = 3; // Misalkan jumlah kasir adalah 3
+    static int jumlahBulan = 3; // Misalkan jumlah bulan adalah 3
     static String[] namaKasir = new String[jumlahKasir];
-    static double[][] totalPendapatan = new double[jumlahKasir][pendapatanTotal];
+    static double[][] totalPendapatan = new double[jumlahKasir][jumlahBulan];
     static double[] pendapatanKasir = new double[jumlahKasir];
 
     static int tampilanManajer() {
         
 
-                   System.out.println("============  SELAMAT DATANG ============");
-                   System.out.println("    1. LAPORAN STOK");
-                   System.out.println("    2. LAPORAN PENDAPATAN");
-                   System.out.println("    3. KEMBALI");
-        int choose = scanner.nextInt();
+                   System.out.println("============     SELAMAT DATANG      ============");
+                   System.out.println("|       1. TENTANG PENDAPATAN KANTIN SEHAT      |");
+                   System.out.println("|        2. KEMBALI                            |");
+                   System.out.println("|                                              |");
+                   System.out.println("------------------------------------------------");
+                   
+                   int choose = scanner.nextInt();
 
         switch (choose) {
-            case 1:
-                displaymenu();
-                break;
-            case 2:
+                case 1:
                 masukkanPendapatan();
                 laporanPendapatan();
                 // Menambahkan pilihan untuk kembali ke menu awal
                 break;
-            default:
+                default:
+               System.out.println("Pilihan anda Tidak valid , pilih 1-2");
                 break;
         }
         return choose;
     }
 
-    static void laporanStok() {
-        
-       
-       
-
-    }
-       
-
     static void laporanPendapatan() {
-        System.out.println("\nPendapatan Kasir:");
+        System.out.println("\n============ BERIKUT TAMPILAN PENDAPATAN DARI KANTIN SEHAT ===============");
         for (int i = 0; i < jumlahKasir; i++) {
             System.out.print("Kasir ke-" + (i + 1) + " (" + namaKasir[i] + "): ");
             System.out.println(pendapatanKasir[i]);
         }
     }
 
-    static void masukkanPendapatan() {
-        for (int i = 0; i < jumlahKasir; i++) {
-            System.out.print("Masukkan nama penanggung jawab kasier-" + (i + 1) + ": ");
-            namaKasir[i] = scanner.next();
-
-            for (int j = 0; j < pendapatanTotal; j++) {
-                System.out.print("Pendapatan tiap kasir " + (j + 1) + ": ");
-                totalPendapatan[i][j] = scanner.nextDouble();
-                // Simpan pendapatan saat memasukkan nilai
-                pendapatanKasir[i] += totalPendapatan[i][j];
-            }
-        }
-    }
-    static void displaymenu(){
-        Scanner scanner = new Scanner(System.in);
-        int choice=0;
-
-        while (choice !=3) {
-            System.out.println("\n========== MAIN Stok ==========");
-            System.out.println("1. Tampilkan Stok");
-            System.out.println("2. Ubah Stok menu");
-            System.out.println("3.Keluar");
-            System.out.println("Pilih Menu: ");
-            choice= scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                displaymenus();
-                break;
-
-                case 2:
-                updateMenuItems(scanner);
-                break;
-
-                case 3:
-                System.out.println("Terimakasih !");
-                break;
-            
-                default:
-                System.out.println("Pilihan anda tidak valid !, pilih 1-3 !");
-                    break;
-            }
-            scanner.close();
-        }
+   static void masukkanPendapatan() {
+            for (int i = 0; i < jumlahKasir; i++) {
+                System.out.println("======== Masukkan nama penanggung jawab kasir ke-" + (i + 1) + " =========");
+                namaKasir[i] = scanner.next();
     
-    }
-static void displaymenus(){
-        menuItems[0][0] = "1"; // id
-        menuItems[0][1] = "Chicken katsu"; // name
-        menuItems[0][2] = "20000"; // price
-        menuItems[0][3] = "5"; // stocks
-
-        menuItems[1][0] = "2"; // id
-        menuItems[1][1] = "Soto Lamongan"; // name
-        menuItems[1][2] = "12000"; // price
-        menuItems[1][3] = "5"; // stocks
-
-        menuItems[2][0] = "3"; // id
-        menuItems[2][1] = "Udang Crispy"; // name
-        menuItems[2][2] = "10000"; // price
-        menuItems[2][3] = "5"; // stocks
-
-        menuItems[3][0] = "4"; // id
-        menuItems[3][1] = "Lemon Tea"; // name
-        menuItems[3][2] = "10000"; // price
-        menuItems[3][3] = "5"; // stocks
-
-        menuItems[4][0] = "5"; // id
-        menuItems[4][1] = "Milk chocolate"; // name
-        menuItems[4][2] = "15000"; // price
-        menuItems[4][3] = "5"; // stocks
-
-        menuItems[5][0] = "6"; // id
-        menuItems[5][1] = "Coca Cola"; // name
-        menuItems[5][2] = "15000"; // price
-        menuItems[5][3] = "5"; // stocks
+                for (int bulan = 0; bulan < jumlahBulan; bulan++) {
+                    System.out.println("====== Input Pendapatan " + namaKasir[i] + " untuk Bulan ke-" + (bulan + 1) + " =======");
+                    double totalPendapatanBulan = 0.0;
+    
+                    for (int minggu = 0; minggu < 4; minggu++) {
+                        System.out.print("Pendapatan Kasir " + namaKasir[i] + " minggu ke-" + (minggu + 1) + ": ");
+                        double pendapatanMingguan = scanner.nextDouble();
+                        totalPendapatanBulan += pendapatanMingguan;
+                    }
+    
+                    totalPendapatan[i][bulan] = totalPendapatanBulan;
+                    pendapatanKasir[i] += totalPendapatanBulan;
+                }
+            }
+        }
 }
-static void updateMenuItems(Scanner scanner){
-    System.out.println("\n========== Ubah Stok Menu ==========");
-    System.out.println("Masukkan ID menu yang ingin di ubah: ");
-    int idMenu= scanner.nextInt();
+    // static void displaymenu(){
+    //     Scanner scanner = new Scanner(System.in);
+    //     int choice=0;
 
-    if (idMenu >=1 && idMenu <= menuItems.length) {
-        System.out.println("Masukkan nama menu baru: ");
-        String newMenuname= scanner.next();
+    //     while (choice !=3) {
+    //         System.out.println("\n========== MAIN Stok ==========");
+    //         System.out.println("1. Tampilkan Stok");
+    //         System.out.println("2. Ubah Stok menu");
+    //         System.out.println("3.Keluar");
+    //         System.out.println("Pilih Menu: ");
+    //         choice= scanner.nextInt();
 
-        System.out.println("Masukkan jumlah stok baru: ");
-        int newStok= scanner.nextInt();
+    //         switch (choice) {
+    //             case 1:
+    //             tampilanmenu();
+    //             break;
 
-        menuItems[idMenu -1][1]= newMenuname;
-        menuItems[idMenu -1][3]= String.valueOf(newStok);
+    //             case 2:
+    //             // updateMenuItems();
+    //             break;
 
-        System.out.println("Menu berhasil di rubah !");
+    //             case 3:
+    //             System.out.println("Terimakasih !");
+    //             break;
+            
+    //             default:
+    //             System.out.println("Pilihan anda tidak valid !, pilih 1-3 !");
+    //                 break;
+    //         }
+            
+    //     }
+    
+    // }
+    //     public static void tampilanmenu(){
+    //        String[] displaymenu= {"Chicken katsu","Soto Lamongan","Udang Crispy","Lemon Tea","Milk chocolate","Coca Cola"};
+    //        int[][] displaystok= {{34,23,43}};
+           
+    //         System.out.println(displaymenu[2]+displaymenu[1]);
+           
         
-    }else{
-        System.out.println("ID Menu tidak Valid !");
-    }
-}
-    }
+        
+    
 
 
 
